@@ -2,20 +2,20 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: ubereats
+  name: portfolio
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: ubereats
+      app: portfolio
   template:
     metadata:
       labels:
-        app: ubereats
+        app: portfolio
     spec:
       containers:
-      - name: ubereats
-        image: rameshkumarverma/ubereats:latest
+      - name: portfolio
+        image: rameshkumarverma/portfolio:latest
         ports:
         - containerPort: 80   # Use port 3000
 
@@ -23,10 +23,10 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: ubereats-service
+  name: portfolio-service
 spec:
   selector:
-    app: ubereats
+    app: portfolio
   ports:
   - protocol: TCP
     port: 80                 # Expose port 80
