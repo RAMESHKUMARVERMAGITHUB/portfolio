@@ -66,11 +66,11 @@ pipeline{
                 sh "trivy image rameshkumarverma/portfolio:latest > trivyimage.txt"
             }
         }
-        stage("deploy_docker"){
-            steps{
-                sh "docker run -d --name portfolio -p 80:80 rameshkumarverma/portfolio:latest"
-            }
-        }
+        // stage("deploy_docker"){
+        //     steps{
+        //         sh "docker run -d --name portfolio -p 80:80 rameshkumarverma/portfolio:latest"
+        //     }
+        // }
         // stage("docker-deploy"){
         //     steps{
         //         sh "docker-compose up -d"
