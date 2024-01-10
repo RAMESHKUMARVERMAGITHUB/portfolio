@@ -1,0 +1,34 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: ubereats
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: ubereats
+  template:
+    metadata:
+      labels:
+        app: ubereats
+    spec:
+      containers:
+      - name: ubereats
+        image: rameshkumarverma/ubereats:latest
+        ports:
+        - containerPort: 80   # Use port 3000
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: ubereats-service
+spec:
+  selector:
+    app: ubereats
+  ports:
+  - protocol: TCP
+    port: 80                 # Expose port 80
+    targetPort: 80
+  type: LoadBalancer
