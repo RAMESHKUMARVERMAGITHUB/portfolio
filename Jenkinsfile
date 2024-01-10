@@ -18,6 +18,7 @@ pipeline{
                 git branch: 'master', url: 'https://github.com/RAMESHKUMARVERMAGITHUB/portfolio.git'
             }
         }
+        
         stage("Sonarqube Analysis "){
             steps{
                 withSonarQubeEnv('sonar-server') {
@@ -70,6 +71,11 @@ pipeline{
                 sh "docker run -d --name portfolio -p 80:80 rameshkumarverma/portfolio:latest"
             }
         }
+        // stage("docker-deploy"){
+        //     steps{
+        //         sh "docker-compose up -d"
+        //     }
+        // }
         stage("trivy k8s scan"){
             steps{
                 sh "trivy k8s deployment-service.yml"
