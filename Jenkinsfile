@@ -15,14 +15,14 @@ pipeline{
         }
         stage('Checkout from Git'){
             steps{
-                git branch: 'main', url: 'https://github.com/RAMESHKUMARVERMAGITHUB/Uber-eats.git'
+                git branch: 'master', url: 'https://github.com/RAMESHKUMARVERMAGITHUB/portfolio.git'
             }
         }
         stage("Sonarqube Analysis "){
             steps{
                 withSonarQubeEnv('sonar-server') {
-                    sh ''' $SCANNER_HOME/bin/sonar-scanner -Dsonar.projectName=ubereats \
-                    -Dsonar.projectKey=ubereats'''
+                    sh ''' $SCANNER_HOME/bin/sonar-scanner -Dsonar.projectName=portfolio \
+                    -Dsonar.projectKey=portfolio'''
                 }
             }
         }
@@ -53,21 +53,21 @@ pipeline{
             steps{
                 script{
                    withDockerRegistry(credentialsId: 'docker', toolName: 'docker'){
-                       sh "docker build -t rameshkumarverma/ubereats:latest ."
-                       // sh "docker tag uber rameshkumarverma/ubereats:latest "
-                       sh "docker push rameshkumarverma/ubereats:latest"
+                       sh "docker build -t rameshkumarverma/portfolio:latest ."
+                       // sh "docker tag uber rameshkumarverma/portfolio:latest "
+                       sh "docker push rameshkumarverma/portfolio:latest"
                     }
                 }
             }
         }
         stage("TRIVY"){
             steps{
-                sh "trivy image rameshkumarverma/ubereats:latest > trivyimage.txt"
+                sh "trivy image rameshkumarverma/portfolio:latest > trivyimage.txt"
             }
         }
         stage("deploy_docker"){
             steps{
-                sh "docker run -d --name ubereats -p 80:80 rameshkumarverma/ubereats:latest"
+                sh "docker run -d --name portfolio -p 80:80 rameshkumarverma/portfolio:latest"
             }
         }
         stage("trivy k8s scan"){
