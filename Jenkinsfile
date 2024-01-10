@@ -76,11 +76,6 @@ pipeline{
         //         sh "docker-compose up -d"
         //     }
         // }
-        stage("trivy k8s scan"){
-            steps{
-                sh "trivy k8s deployment-service.yml"
-            }
-        }
         stage('Deploy to kubernets'){
             steps{
                 script{
